@@ -23,7 +23,9 @@ class zoneService{
 
     static async getAllZones(){
         try{
-            const subzones = await database.Subzone.findAll()
+            const subzones = await database.Subzone.findAll({
+                order: [['sequence','ASC']]
+            })
             return subzones
         }catch(err){
             throw err

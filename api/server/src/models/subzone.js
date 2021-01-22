@@ -2,6 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Subzone = sequelize.define('Subzone', {
     name: DataTypes.STRING,
+    sequence: DataTypes.INTEGER,
     zone_id: DataTypes.INTEGER
   }, {});
   Subzone.associate = function(models) {
