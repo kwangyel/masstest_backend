@@ -32,6 +32,23 @@ class structureService{
             throw err
         }
     }
+
+    static async setRemarks(sid,remarks){
+        try{
+            const str = database.Structure.findOne( { where: { id: sid} });
+            if(str){
+                const updatedstr = database.Structure.update(
+                    {remarks:remarks},
+                    {where:{id:sid}}
+                ) 
+                console.log(updatedstr)
+                return updatedstr
+            }
+            return null
+        }catch(err){
+            throw err
+        }
+    }
     static async getStructure(sid){
         try{
             const str = database.Structure.findOne({

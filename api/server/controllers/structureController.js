@@ -40,6 +40,29 @@ class structureController{
         }
     }
 
+    static async setRemarks(req,res){
+        util.setData(null)
+        const structure_id = req.body.structure_id
+        const remarks = req.body.remarks
+        if(!structure_id && !remarks){
+            util.setError(400,"Invalid body")
+            return util.send(res)
+        }
+        try{
+            const building = await structureService.setRemarks(structure_id,remarks)
+            if(building){
+                util.setSuccess(200,"Strcutre remarks ")
+                return util.send(res)
+            }
+            util.setFailure(200,"Cannot update remarks")
+            return util.send(res)
+        }catch(err){
+            console.log(err)
+            util.setError(400,"Error")
+            return util.send(res)
+        }
+    }
+
     static async getStructre(req,res){
         const {sid} = req.params
         try{

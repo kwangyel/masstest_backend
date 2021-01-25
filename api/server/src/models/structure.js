@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     lat: DataTypes.DOUBLE,
     lng: DataTypes.DOUBLE,
     status: DataTypes.STRING,
-    sub_zone_id: DataTypes.INTEGER
+    sub_zone_id: DataTypes.INTEGER,
+    remarks: DataTypes.STRING
   }, {});
   Structure.associate = function(models) {
     // associations can be defined here
