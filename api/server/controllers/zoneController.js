@@ -43,6 +43,7 @@ class zoneController{
 
     static async getAllZones(req,res){
         util.setData(null)
+        console.log(req.decoded)
         
         try{
             const subzones = await zoneService.getAllZones()

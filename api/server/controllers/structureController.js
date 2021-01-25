@@ -65,7 +65,7 @@ class structureController{
             if(buildings.length){
                 const result = buildings.map((row)=>{
                     let geojson = {"type":"Point"}
-                    geojson.properties = {structure_id:row.id,status:row.status}
+                    geojson.properties = {structure_id:row.id,status:row.status,remarks:row.remarks}
                     geojson.coordinates = [row.lng,row.lat]
                     return geojson
                 })

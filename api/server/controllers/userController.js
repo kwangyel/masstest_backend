@@ -20,23 +20,23 @@ class userController{
             
             if(cid && password){
                 const userd = await userService.getAUser(cid)
+                // const userd = (cid === "321" && password === "321") || (cid === "123" && password === "123")
                 if(userd){
-                    let token = jwt.sign({username:cid},
+                    if(userd['password'] !== password){
+                        util.setFailure(200,"not authorized")
+                        return util.send(res)
+                    }
+                    let token = jwt.sign({cid:cid,role:userd['role']},
                         process.env.SECRET_KEY,
                         {expiresIn:"24h"})
                     
-                    if(password == userd['password']){
-                            util.setSuccess(200,"Logged in")
-                            util.setData({
-                                token:token,
-                                username:userd['username'],
-                                id:userd['id'],
-                            })
-                            return util.send(res)
-                    }else{
-                            util.setFailure(200,"username or password incorrect")
-                            return util.send(res)
-                    }
+                    util.setSuccess(200,"Logged in")
+                    util.setData({
+                        token:token,
+                        username:userd['username'],
+                        id:userd['id'],
+                    })
+                    return util.send(res)
                 }
                 util.setFailure(200,"username or password incorrect")
                 return util.send(res)

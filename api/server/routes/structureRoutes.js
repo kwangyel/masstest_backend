@@ -1,11 +1,12 @@
 import {Router} from 'express';
 import structureController from '../controllers/structureController';
+import authorize from '../middlewares/authorize'
 
 const router=Router();
 
 router.get('/get-str/:zoneid',structureController.getStructureJson)
-router.post('/create-str',structureController.createBuilding)
-router.get('/markComplete/:bid',structureController.markComplete)
-router.get('/markProgress/:id',structureController.markProgress)
+router.post('/create-str',authorize("EDIT"), structureController.createBuilding)
+router.get('/markComplete/:bid',authorize("EDIT"),structureController.markComplete)
+router.get('/markProgress/:id',authorize("EDIT"),structureController.markProgress)
 
 export default router;
