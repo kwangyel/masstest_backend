@@ -1,3 +1,4 @@
+import userService from '../services/userService';
 import zoneService from '../services/zoneService'
 import Util from '../utils/Utils'
 
@@ -5,9 +6,12 @@ const util=new Util();
 
 class zoneController{
     static async getAllDzongkhags(req,res){
+        // TODO: filter the dzongkhags associated with users from here
         util.setData(null)
         try{
-            const dzos = await zoneService.getAllDzongkhags()
+            const user = await userService.getAUser(req.decoded.cid)
+            // console.log(user)
+            const dzos = await zoneService.getAllDzongkhags(user.id)
             if(dzos){
                 util.setSuccess(200,"Retireved")
                 util.setData(dzos)

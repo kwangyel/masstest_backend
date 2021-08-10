@@ -54,6 +54,7 @@ app.use(residentRoutes)
 app.use(schoolRoutes)
 app.use(institutionRoutes)
 app.use(structureRoutes)
+app.use(zoneRoutes)
 
 app.listen(port,()=>{
 	console.log(`server listening on port ${port}`)

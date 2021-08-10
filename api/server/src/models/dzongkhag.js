@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Dzongkhag.associate = function(models) {
     // associations can be defined here
+    Dzongkhag.belongsToMany(models.User,{as:'users',through: models.UserDzo, foreignKey:'dzoId'})
   };
   return Dzongkhag;
 };

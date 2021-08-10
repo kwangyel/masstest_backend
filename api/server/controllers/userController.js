@@ -12,6 +12,26 @@ class userController{
             res.send(hash) 
         })
     }
+    // TODO: delete this afterwards
+    static async getUser(req,res){
+        util.setData(null)
+        const {cid} = req.params
+        try{
+            const dzos = await userService.getAUser(cid)
+            if(dzos){
+                util.setSuccess(200,"Retireved")
+                util.setData(dzos)
+                return util.send(res)
+            }
+            util.setFailure(200,"Not found")
+            return util.send(res)
+        }catch(err){
+            console.log(err)
+            util.setError(400,"Error")
+            return util.send(res)
+        }
+    }
+
     static async login(req,res){
         try{
             const cid = req.body.cid
@@ -21,8 +41,9 @@ class userController{
             if(cid && password){
                 const userd = await userService.getAUser(cid)
                 // const userd = (cid === "321" && password === "321") || (cid === "123" && password === "123")
+                console.log(userd['password'])
                 if(userd){
-                    if(userd['password'] !== password){
+                    if(userd['password'] != password){
                         util.setFailure(200,"not authorized")
                         return util.send(res)
                     }

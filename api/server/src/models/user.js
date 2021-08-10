@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false
   });
   User.associate = function(models) {
+    User.belongsToMany(models.Dzongkhag,{as:'dzongkhags',through: models.UserDzo, foreignKey:'userId'})
     // associations can be defined here
   };
   return User;

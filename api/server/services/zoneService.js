@@ -1,9 +1,18 @@
 import database from '../src/models';
+import user from '../src/models/user';
 
 class zoneService{
-    static async getAllDzongkhags(){
+    static async getAllDzongkhags(uid){
         try{
-            const dzos = await database.Dzongkhag.findAll()
+            const dzos = await database.Dzongkhag.findAll({
+                include:[ {
+                    model:database.User,
+                    as: 'users',
+                    attributes:['cid','id'],
+                    // where:{userId:1}
+                    where:{id:uid}
+                }],
+            });
             return dzos
         }catch(err){
             throw err

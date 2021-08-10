@@ -34,6 +34,13 @@ class userService{
 	static async getAUser(cid){
 		try{
 			const user= await database.User.findOne({
+                include:[{
+                    model:database.Dzongkhag,
+                    as:'dzongkhags',
+                    through:{
+                        attributes:['name'],
+                    }
+                }],
                 where:{cid:Number(cid)}
             })
             return user
